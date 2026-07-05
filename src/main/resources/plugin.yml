@@ -1,0 +1,49 @@
+name: MossOrder
+version: '${project.version}'
+main: dev.wulnry.mossorder.MossOrder
+api-version: '1.20'
+author: wulnrydev
+description: Yüksek performanslı, lagsız alım siparişi (buy order) ekonomi eklentisi.
+website: https://wulnry.dev
+
+depend:
+  - Vault
+# Ekonomi sağlayıcıları softdepend olarak listelenir; kuruluysa MossOrder'dan
+# ÖNCE yüklenmeleri sağlanır (yükleme sırası kaynaklı "ekonomi bulunamadı"
+# hatasını önler). Listede olmayan sağlayıcılar için ilk tick'te tekrar denenir.
+softdepend:
+  - ProtocolLib
+  - Essentials
+  - EssentialsX
+  - CMI
+  - XConomy
+  - EconomyLite
+  - TheNewEconomy
+
+commands:
+  siparis:
+    description: MossOrder ana menüsünü açar ve hızlı sipariş vermeyi sağlar.
+    usage: /siparis [oluştur <eşya> <miktar> <fiyat>]
+    aliases:
+      - sipariş
+      - order
+      - mossorder
+  siparisadmin:
+    description: MossOrder yönetici komutları.
+    usage: /siparisadmin <sil|reload>
+    permission: mossorder.admin
+    aliases:
+      - siparişadmin
+      - moadmin
+      - orderadmin
+
+permissions:
+  mossorder.use:
+    description: MossOrder menülerini ve komutlarını kullanma izni.
+    default: true
+  mossorder.create:
+    description: Yeni sipariş oluşturma izni.
+    default: true
+  mossorder.admin:
+    description: Siparişleri zorla kaldırma ve eklentiyi yönetme izni.
+    default: op

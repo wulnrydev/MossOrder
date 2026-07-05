@@ -1,0 +1,111 @@
+# ==========================================================================
+#  MossOrder  •  Mesaj Dosyası (UTF-8)
+# --------------------------------------------------------------------------
+#  Renk paleti:
+#    Ön ek (prefix) : &#15FF08&lSipariş &8▸
+#    Normal metin   : &7
+#    Birincil vurgu : &#00D420
+#    İkincil vurgu  : &#ffd500
+#  Kullanılabilir yer tutucular mesajın yanında belirtilmiştir.
+# ==========================================================================
+
+# Tüm mesajların başına eklenen ön ek.
+prefix: "&#15FF08&lSipariş &8▸ &r"
+
+# --- Genel ---------------------------------------------------------------
+general:
+  no-permission: "&cBu işlemi yapmak için yetkin yok."
+  players-only: "&cBu komut yalnızca oyuncular tarafından kullanılabilir."
+  reloaded: "&7Yapılandırma başarıyla &#00D420yeniden yüklendi&7."
+  invalid-number: "&7'&#ffd500{input}&7' geçerli bir sayı değil."
+  vault-missing: "&cEkonomi eklentisi (Vault) bulunamadı! MossOrder devre dışı."
+  loading: "&7Veriler yükleniyor, lütfen bekle..."
+  cancelled: "&7İşlem iptal edildi."
+  cooldown: "&7Çok hızlısın! &#ffd500{seconds}sn &7sonra tekrar dene."
+
+# --- Komut yardımı -------------------------------------------------------
+help:
+  header: "&#15FF08&lMossOrder &7komutları:"
+  user:
+    - "&#00D420/siparis &7- Ana sipariş menüsünü açar."
+    - "&#00D420/siparis oluştur <eşya> <miktar> <fiyat> &7- Hızlı sipariş verir."
+    - "&#00D420/siparis depo &7- Sipariş deponu açar (satılan eşyaları buradan alırsın)."
+  admin:
+    - "&#00D420/siparisadmin sil <id> &7- Bir siparişi zorla kaldırır (para iade edilir)."
+    - "&#00D420/siparisadmin reload &7- Yapılandırmayı yeniden yükler."
+
+# --- Sipariş oluşturma ---------------------------------------------------
+order:
+  # Yer tutucular: {item} {amount} {unit} {total} {id}
+  created: "&#00D420{amount}x &7{item} için birim &#ffd500{unit} &7fiyatla siparişin oluşturuldu. &8(#{id})"
+  create-charged: "&7Hesabından &#ffd500{total} &7çekildi."
+  create-tax: "&7Komisyon: &#ffd500{tax}&7."
+  insufficient-funds: "&7Yetersiz bakiye! Bu sipariş için &#ffd500{total} &7gerekiyor, sende &#ffd500{balance} &7var."
+  invalid-item: "&7'&#ffd500{input}&7' geçerli bir eşya değil. Örnek: &#00D420gold_block"
+  not-an-item: "&7&#ffd500{item} &7bir envanter eşyası olmadığı için sipariş edilemez."
+  invalid-amount: "&7Miktar &#ffd5001 &7ile &#ffd500{max} &7arasında olmalı."
+  invalid-price: "&7Birim fiyat &#ffd500{min} &7ile &#ffd500{max} &7arasında olmalı."
+  limit-reached: "&7En fazla &#ffd500{max} &7aktif siparişin olabilir."
+  not-found: "&7&#ffd500#{id} &7numaralı sipariş bulunamadı."
+  # Sipariş iptali / kaldırma
+  cancel-hint: "&7Bu siparişi iptal etmek için &#ffd500sağ tık &7yap (kalan tutar iade edilir)."
+  cancelled-refund: "&#00D420#{id} &7numaralı siparişin iptal edildi ve &#ffd500{refund} &7iade edildi."
+  not-owner: "&7Bu sipariş sana ait değil."
+  admin-removed: "&7&#ffd500#{id} &7numaralı sipariş kaldırıldı, &#ffd500{refund} &7sahibine iade edildi."
+  admin-removed-target: "&7&#ffd500#{id} &7numaralı siparişin bir yönetici tarafından kaldırıldı; &#ffd500{refund} &7iade edildi."
+  draft-incomplete: "&7Siparişi tamamlamak için eşya, miktar ve fiyat seçmelisin."
+
+# --- Teslimat (siparişi karşılama) --------------------------------------
+delivery:
+  # Yer tutucular: {amount} {item} {earned} {id} {buyer} {seller}
+  own-order: "&7Kendi siparişini karşılayamazsın."
+  no-items: "&7Envanterinde &#ffd500{item} &7yok."
+  sold: "&#00D420{amount}x &7{item} sattın ve &#ffd500{earned} &7kazandın. &8(#{id})"
+  order-completed-seller: "&7&#ffd500#{id} &7numaralı sipariş tamamen karşılandı!"
+  order-completed-buyer: "&#00D420Siparişin tamamlandı! &7{amount}x {item} sipariş deposuna eklendi. &8(#{id})"
+  buyer-received: "&7Bir oyuncu siparişini karşıladı: &#00D420{amount}x &7{item} sipariş deposuna düştü. &8(#{id})"
+
+# --- Sipariş deposu (satılan eşyaların bekleme alanı) ---------------------
+warehouse:
+  has-items: "&7Sipariş deponda seni bekleyen eşyalar var! &#00D420/siparis depo &7ile alabilirsin."
+  claimed: "&#00D420{amount}x &7eşya depodan envanterine aktarıldı."
+  no-space: "&7Envanterinde yer yok; eşyalar depoda güvende bekliyor."
+  empty: "&7Deponda bekleyen eşya yok."
+
+# --- Metin girişi (Tabela / Sohbet) -------------------------------------
+input:
+  # Tabela üzerinde gösterilecek satırlar (arama)
+  sign-search:
+    - ""
+    - "^^^^^^^^^^^^^^^"
+    - "Eşya ID'sini yaz"
+    - "örn: gold_block"
+  # Tabela üzerinde gösterilecek satırlar (fiyat)
+  sign-price:
+    - ""
+    - "^^^^^^^^^^^^^^^"
+    - "Birim fiyatı yaz"
+    - "örn: 25.5"
+  # Tabela üzerinde gösterilecek satırlar (miktar)
+  sign-amount:
+    - ""
+    - "^^^^^^^^^^^^^^^"
+    - "Miktarı yaz"
+    - "örn: 64"
+  chat-search: "&7Aramak istediğin eşya ID'sini sohbete yaz &8(iptal için '&#ffd500{cancel}&8')"
+  chat-price: "&7Ödemek istediğin birim fiyatı sohbete yaz &8(iptal için '&#ffd500{cancel}&8')"
+  chat-amount: "&7İstediğin miktarı sohbete yaz &8(iptal için '&#ffd500{cancel}&8')"
+  timeout: "&7Giriş zaman aşımına uğradı."
+
+# --- Arama sonuçları -----------------------------------------------------
+search:
+  applied: "&7'&#ffd500{query}&7' için arama uygulandı."
+  cleared: "&7Arama filtresi temizlendi."
+  no-results: "&7'&#ffd500{query}&7' için sipariş bulunamadı."
+
+# --- Menü bildirimleri ---------------------------------------------------
+menu:
+  sort-changed: "&7Sıralama: &#00D420{mode}"
+  refreshed: "&7Menü güncellendi."
+  empty: "&7Görüntülenecek aktif sipariş yok."
+  empty-own: "&7Henüz bir siparişin yok. &#00D420Yeni bir tane oluştur!"

@@ -1,0 +1,272 @@
+# ==========================================================================
+#  MossOrder  •  Menü Yapılandırması (UTF-8)
+# --------------------------------------------------------------------------
+#  Her menünün başlığı, satır sayısı (rows), doldurucu (filler) ve butonları
+#  buradan özelleştirilebilir.
+#
+#  Buton alanları:
+#    slot        -> Envanterdeki yuva numarası (0'dan başlar)
+#    material    -> Bukkit Material adı (ör: ARROW, CHEST)
+#    name        -> Görünen ad (renk kodları desteklenir)
+#    lore        -> Açıklama satırları (liste)
+#    amount      -> Yığın miktarı (opsiyonel, varsayılan 1)
+#    glow        -> true ise eşya parıldar (opsiyonel)
+#    model-data  -> CustomModelData değeri (opsiyonel)
+#
+#  Sipariş kartlarında (order-display) kullanılabilen yer tutucular:
+#    {id} {owner} {item} {amount} {delivered} {remaining}
+#    {unit} {total} {progress} {time}
+# ==========================================================================
+
+# Her siparişin envanterde nasıl gösterileceği (materyal = sipariş edilen eşya)
+order-display:
+  name: "&#00D420&l{item}"
+  lore:
+    - "&8Sipariş #{id}"
+    - ""
+    - "&7Sahip: &f{owner}"
+    - "&7Miktar: &#ffd500{remaining}&7/&#ffd500{amount}"
+    - "&7Birim fiyat: &#ffd500{unit}"
+    - "&7Toplam değer: &#ffd500{total}"
+    - "&7İlerleme: &#00D420{progress}"
+    - ""
+    - "&#00D420» Sol tık: &7bu siparişe eşya sat"
+    - "&8» Sağ tık (yetkili): siparişi kaldır"
+
+menus:
+
+  # ------------------------------------------------------------------ Ana menü
+  main:
+    title: "&0Siparişler"
+    rows: 6
+    filler:
+      material: GRAY_STAINED_GLASS_PANE
+      name: " "
+    buttons:
+      previous-page:
+        slot: 45
+        material: ARROW
+        name: "&#00D420« Önceki Sayfa"
+        lore:
+          - "&7Sayfa &f{page}&7/&f{pages}"
+      next-page:
+        slot: 53
+        material: ARROW
+        name: "&#00D420Sonraki Sayfa »"
+        lore:
+          - "&7Sayfa &f{page}&7/&f{pages}"
+      sort:
+        slot: 47
+        material: COMPARATOR
+        name: "&#ffd500&lSırala"
+        glow: true
+        lore:
+          - "&7Aktif mod: &#00D420{mode}"
+          - ""
+          - "&#00D420» Tık: sıralamayı değiştir"
+      refresh:
+        slot: 49
+        material: SUNFLOWER
+        name: "&#00D420&lYenile"
+        lore:
+          - "&7Siparişleri anlık olarak günceller."
+          - ""
+          - "&#00D420» Tık: yenile"
+      search:
+        slot: 48
+        material: OAK_SIGN
+        name: "&#ffd500&lAra"
+        lore:
+          - "&7Belirli bir eşyanın siparişlerini bul."
+          - ""
+          - "&#00D420» Tık: eşya ID'si yaz"
+          - "&8» Sağ tık: aramayı temizle"
+      my-orders:
+        slot: 50
+        material: WRITABLE_BOOK
+        name: "&#00D420&lSenin Siparişlerin"
+        lore:
+          - "&7Kendi siparişlerini görüntüle ve yönet."
+          - ""
+          - "&#00D420» Tık: aç"
+      warehouse:
+        slot: 46
+        material: CHEST
+        name: "&#ffd500&lSipariş Deponuz"
+        lore:
+          - "&7Satılan eşyaların düştüğü depoyu aç."
+          - ""
+          - "&#00D420» Tık: aç"
+      close:
+        slot: 51
+        material: BARRIER
+        name: "&cKapat"
+        lore:
+          - "&7Menüyü kapatır."
+
+  # -------------------------------------------------------- Senin siparişlerin
+  my-orders:
+    title: "&0Senin Siparişlerin"
+    rows: 6
+    filler:
+      material: GRAY_STAINED_GLASS_PANE
+      name: " "
+    buttons:
+      previous-page:
+        slot: 45
+        material: ARROW
+        name: "&#00D420« Önceki Sayfa"
+        lore:
+          - "&7Sayfa &f{page}&7/&f{pages}"
+      next-page:
+        slot: 52
+        material: ARROW
+        name: "&#00D420Sonraki Sayfa »"
+        lore:
+          - "&7Sayfa &f{page}&7/&f{pages}"
+      back:
+        slot: 49
+        material: SPRUCE_DOOR
+        name: "&#00D420« Geri"
+        lore:
+          - "&7Ana menüye dön."
+      create:
+        slot: 53
+        material: CHEST
+        name: "&#00D420&lYeni Sipariş Oluştur"
+        lore:
+          - "&7Yeni bir alım siparişi kur."
+          - ""
+          - "&#00D420» Tık: oluşturmaya başla"
+
+  # ---------------------------------------------------- Yeni sipariş oluşturma
+  create:
+    title: "&0Yeni Sipariş Oluştur"
+    rows: 5
+    filler:
+      material: BLACK_STAINED_GLASS_PANE
+      name: " "
+    buttons:
+      item:
+        slot: 20
+        material: BARRIER
+        name: "&#ffd500&lEşya Seç"
+        lore:
+          - "&7Seçilen: &#00D420{item}"
+          - ""
+          - "&#00D420» Tık: eşya listesini aç"
+      amount:
+        slot: 22
+        material: PAPER
+        name: "&#ffd500&lMiktar Belirle"
+        lore:
+          - "&7Seçilen: &#00D420{amount}"
+          - ""
+          - "&#00D420» Tık: miktar yaz"
+      price:
+        slot: 24
+        material: GOLD_INGOT
+        name: "&#ffd500&lBirim Fiyat Belirle"
+        lore:
+          - "&7Seçilen: &#00D420{unit}"
+          - "&7Toplam maliyet: &#ffd500{total}"
+          - ""
+          - "&#00D420» Tık: fiyat yaz"
+      confirm:
+        slot: 39
+        material: LIME_CONCRETE
+        name: "&#00D420&lOnayla"
+        lore:
+          - "&7Siparişi oluştur ve ücreti öde."
+          - ""
+          - "&7Toplam: &#ffd500{total}"
+      cancel:
+        slot: 41
+        material: RED_CONCRETE
+        name: "&cİptal"
+        lore:
+          - "&7Oluşturmayı iptal et ve geri dön."
+
+  # ------------------------------------------------------------ Eşya seçme menüsü
+  item-select:
+    title: "&0Eşya Seç"
+    rows: 6
+    filler:
+      material: GRAY_STAINED_GLASS_PANE
+      name: " "
+    buttons:
+      previous-page:
+        slot: 45
+        material: ARROW
+        name: "&#00D420« Önceki Sayfa"
+        lore:
+          - "&7Sayfa &f{page}&7/&f{pages}"
+      next-page:
+        slot: 53
+        material: ARROW
+        name: "&#00D420Sonraki Sayfa »"
+        lore:
+          - "&7Sayfa &f{page}&7/&f{pages}"
+      back:
+        slot: 49
+        material: SPRUCE_DOOR
+        name: "&#00D420« Geri"
+        lore:
+          - "&7Sipariş oluşturmaya dön."
+    # Listedeki her eşyanın gösterim şablonu ({item} = okunabilir ad)
+    item-display:
+      name: "&#00D420{item}"
+      lore:
+        - "&8{key}"
+        - ""
+        - "&#00D420» Tık: bu eşyayı seç"
+
+  # ------------------------------------------------------------- Sipariş deposu
+  warehouse:
+    title: "&0Sipariş Deponuz"
+    rows: 6
+    filler:
+      material: GRAY_STAINED_GLASS_PANE
+      name: " "
+    buttons:
+      previous-page:
+        slot: 45
+        material: ARROW
+        name: "&#00D420« Önceki Sayfa"
+        lore:
+          - "&7Sayfa &f{page}&7/&f{pages}"
+      next-page:
+        slot: 53
+        material: ARROW
+        name: "&#00D420Sonraki Sayfa »"
+        lore:
+          - "&7Sayfa &f{page}&7/&f{pages}"
+      back:
+        slot: 49
+        material: SPRUCE_DOOR
+        name: "&#00D420« Geri"
+        lore:
+          - "&7Ana menüye dön."
+      claim-all:
+        slot: 48
+        material: HOPPER
+        name: "&#00D420&lTümünü Al"
+        lore:
+          - "&7Depodaki her şeyi, sığdığı kadarıyla envanterine aktarır."
+          - ""
+          - "&#00D420» Tık: tümünü al"
+      refresh:
+        slot: 50
+        material: SUNFLOWER
+        name: "&#00D420&lYenile"
+        lore:
+          - "&7Depoyu anlık olarak günceller."
+          - ""
+          - "&#00D420» Tık: yenile"
+    # Depodaki her eşyanın gösterim şablonu ({item} = okunabilir ad, {amount} = miktar)
+    item-display:
+      name: "&#00D420&l{item}"
+      lore:
+        - "&7Bekleyen miktar: &#ffd500{amount}"
+        - ""
+        - "&#00D420» Tık: bu eşyayı al (sığdığı kadar)"

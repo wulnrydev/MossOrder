@@ -1,0 +1,95 @@
+# ==========================================================================
+#  MossOrder  •  yapımcı: wulnrydev
+#  Yüksek performanslı alım siparişi (buy order) ekonomi eklentisi
+# ==========================================================================
+# Renk kodları:
+#   &#RRGGBB  -> HEX renk (ör: &#00D420)
+#   &7, &l    -> klasik renk/biçim kodları
+# Tüm dosyalar UTF-8 kodlaması ile kaydedilmelidir (Türkçe karakter desteği).
+# ==========================================================================
+
+# config.yml sürümü. Elle değiştirmeyin.
+config-version: 1
+
+# --------------------------------------------------------------------------
+# Veritabanı ayarları
+# --------------------------------------------------------------------------
+database:
+  # Depolama türü: SQLITE (kurulum gerektirmez, önerilen) veya MYSQL
+  type: SQLITE
+
+  # SQLite için veritabanı dosyasının adı (plugins/MossOrder/ altında oluşur)
+  sqlite-file: "data.db"
+
+  # MYSQL kullanacaksanız aşağıdaki bilgileri doldurun.
+  # NOT: MySQL için sunucunuzda bir JDBC sürücüsü (mysql-connector-j) bulunmalıdır.
+  #      Sürücü yoksa eklenti açılışta uyarı verir; SQLITE her zaman çalışır.
+  mysql:
+    host: "127.0.0.1"
+    port: 3306
+    database: "mossorder"
+    username: "root"
+    password: ""
+    # Bağlantı özellikleri
+    useSSL: false
+    properties:
+      - "characterEncoding=utf8"
+      - "serverTimezone=UTC"
+
+  # HikariCP bağlantı havuzu ayarları
+  pool:
+    # Havuzdaki maksimum bağlantı sayısı.
+    # SQLite tek yazıcı olduğu için 1 önerilir; MySQL için 6-10 uygundur.
+    maximum-pool-size: 4
+    minimum-idle: 1
+    connection-timeout-ms: 8000
+
+# --------------------------------------------------------------------------
+# Genel ayarlar
+# --------------------------------------------------------------------------
+settings:
+  # Aktif sipariş önbelleği (cache) kaç saniyede bir veritabanı ile
+  # eşitlensin? (0 = kapalı, ÖNERİLEN)
+  # Önbellek zaten tek doğruluk kaynağıdır ve her işlemde anında güncellenir;
+  # tek sunucuda periyodik eşitlemeye gerek yoktur. Yalnızca aynı veritabanını
+  # paylaşan birden çok sunucu varsa >0 yapın. Eşitleme "yıkıcı olmayan"dır:
+  # ilerlemeyi asla geri sarmaz ve yerel siparişleri kaybetmez.
+  cache-sync-interval-seconds: 0
+
+  # Bir oyuncunun aynı anda sahip olabileceği maksimum aktif sipariş sayısı.
+  # (0 = sınırsız)
+  max-orders-per-player: 10
+
+  # Tek bir siparişte istenebilecek maksimum eşya miktarı.
+  max-amount-per-order: 100000
+
+  # Birim başına izin verilen en düşük ve en yüksek fiyat.
+  min-unit-price: 0.01
+  max-unit-price: 10000000.0
+
+  # Sipariş oluştururken alınacak komisyon oranı (0.0 - 1.0 arası).
+  # Örn: 0.05 -> siparişin toplam maliyetine ek olarak %5 komisyon.
+  # (0.0 = komisyon yok). Komisyon iade edilmez.
+  creation-tax: 0.0
+
+  # Para birimi biçimi. {amount} yerine tutar gelir.
+  money-format: "{amount}$"
+
+# --------------------------------------------------------------------------
+# Metin girişi (arama ve fiyat/miktar yazımı)
+# --------------------------------------------------------------------------
+input:
+  # Metin girişi yöntemi:
+  #   SIGN -> Tabela (Sign) GUI kullanılır. ProtocolLib gerektirir.
+  #   CHAT -> Oyuncu sohbete yazar (her zaman çalışır).
+  #   AUTO -> ProtocolLib varsa SIGN, yoksa CHAT kullanılır. (önerilen)
+  method: AUTO
+
+  # Tabela açılmazsa method: CHAT yaparak her koşulda çalışan sohbet
+  # girişine geçebilirsiniz.
+
+  # Sohbet girişinde işlemi iptal etmek için yazılacak kelime.
+  chat-cancel-word: "iptal"
+
+  # Sohbet/tabela girişinin zaman aşımı (saniye). Süre dolarsa giriş iptal olur.
+  timeout-seconds: 60
